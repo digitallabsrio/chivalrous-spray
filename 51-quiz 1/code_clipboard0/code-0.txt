@@ -1,0 +1,20 @@
+from multiprocessing import Process, current_process
+import multiprocessing
+
+def child_task(str_obj):
+    print(id(str_obj))
+
+if __name__ == '__main__':
+    str_obj = "Educative!"
+    multiprocessing.set_start_method('fork')
+
+    print(id(str_obj))
+
+    process1 = Process(target=child_task, args=(str_obj,))
+    process1.start()
+
+    process2 = Process(target=child_task, args=(str_obj,))
+    process2.start()
+
+    process1.join()
+    process2.join()

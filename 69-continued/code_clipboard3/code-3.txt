@@ -1,0 +1,17 @@
+from asyncio import Future
+
+if __name__ == "__main__":
+    f = Future()
+
+    # Future has an __iter__() method
+    it = f.__iter__()
+    print(next(it))
+
+    # set the future's result and mark it done
+    f.set_result("hello")
+    f.done()
+
+    try:
+        next(it)
+    except StopIteration as si:
+        print(si.value)

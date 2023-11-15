@@ -1,0 +1,7 @@
+def keep_learning_asynchronous():
+    yield "Educative"
+
+
+if __name__ == "__main__":
+    str = keep_learning_asynchronous()
+    print(str)

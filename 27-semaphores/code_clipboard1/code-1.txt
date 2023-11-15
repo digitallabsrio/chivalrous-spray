@@ -1,0 +1,28 @@
+from threading import Thread
+from threading import Semaphore
+import time
+
+
+def task1():
+    sem.acquire()
+
+
+def task2():
+    sem.release()
+
+# initialize with zero
+sem = Semaphore(0)
+
+# start thread 2 first which invokes release()
+thread2 = Thread(target=task2)
+thread2.start()
+
+# delay starting thread 1 by three seconds
+time.sleep(3)
+
+# start thread 1
+thread1 = Thread(target=task1)
+thread1.start()
+
+thread1.join()
+thread2.join()

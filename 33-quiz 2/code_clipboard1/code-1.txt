@@ -1,0 +1,8 @@
+from threading import Thread
+from threading import Timer
+
+thread = Thread(target=None)
+thread.start()
+
+timer = Timer(1, None)
+timer.start()

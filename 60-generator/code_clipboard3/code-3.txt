@@ -1,0 +1,11 @@
+def natural_nums():
+    print("inside natural_nums function")
+    i = 0
+    while True:
+        i += 1
+        yield i
+
+
+if __name__ == "__main__":
+
+    iter = natural_nums()

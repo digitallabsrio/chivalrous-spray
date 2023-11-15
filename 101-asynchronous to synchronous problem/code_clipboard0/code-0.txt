@@ -1,0 +1,23 @@
+from threading import Thread
+import time
+
+
+class AsyncExecutor:
+
+    def work(self, callback):
+        time.sleep(5)
+        callback()
+
+    def execute_async(self, callback):
+        Thread(target=self.work, args=(callback,)).start()
+
+
+def say_hi():
+    print("Hi")
+
+
+if __name__ == "__main__":
+    exec = AsyncExecutor()
+    exec.execute_async(say_hi)
+
+    print("main thread exiting")

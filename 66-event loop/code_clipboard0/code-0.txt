@@ -1,0 +1,5 @@
+import asyncio
+
+# Retrieving the event loop in asyncio
+loop = asyncio.get_event_loop()
+print(str(loop))

@@ -1,0 +1,19 @@
+def generate_numbers():
+    i = 0
+    while True:
+        i += 1
+        yield i
+        k = yield
+        print(k)
+
+
+if __name__ == "__main__":
+    generator = generate_numbers()
+
+    item = next(generator)
+    print(item)
+
+    # Nothing is received by the generator function   
+    generator.send(5)
+
+

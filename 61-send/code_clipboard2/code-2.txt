@@ -1,0 +1,9 @@
+def generator_function():
+    item = yield
+    print("received " + str(item))
+
+
+if __name__ == "__main__":
+    gen = generator_function()
+    next(gen)
+    gen.send(37)

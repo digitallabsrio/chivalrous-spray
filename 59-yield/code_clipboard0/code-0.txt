@@ -1,0 +1,7 @@
+def keep_learning_synchronous():
+    return "Educative"
+
+
+if __name__ == "__main__":
+    str = keep_learning_synchronous()
+    print(str)

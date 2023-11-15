@@ -1,0 +1,11 @@
+import inspect
+import asyncio
+
+async def useless_native_coroutine():
+  pass
+
+if __name__ == "__main__":
+  coro = useless_native_coroutine()
+  print(inspect.iscoroutine(coro))
+
+

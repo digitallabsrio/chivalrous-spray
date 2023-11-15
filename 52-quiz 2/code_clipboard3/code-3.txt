@@ -1,0 +1,20 @@
+from multiprocessing import Process
+from threading import Semaphore
+import multiprocessing
+
+
+def child_process():
+    sem.acquire()
+    print("Hi, I am the child")
+
+
+if __name__ == '__main__':
+    multiprocessing.set_start_method('spawn')
+
+    sem = Semaphore(0)
+
+    process = Process(target=child_process)
+    process.start()
+
+    sem.release()
+    process.join()

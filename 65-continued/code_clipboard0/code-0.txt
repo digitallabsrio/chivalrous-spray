@@ -1,0 +1,14 @@
+def printer():
+    item = None
+    while True:
+        item = yield
+        print(str(item))
+
+
+if __name__ == "__main__":
+
+    coroutine_object = printer()
+    next(coroutine_object)
+
+    for i in range(0, 11):
+        coroutine_object.send(i)

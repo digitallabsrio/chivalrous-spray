@@ -1,0 +1,4 @@
+from threading import Condition
+
+cond_var = Condition()
+cond_var.wait()  # throws an error

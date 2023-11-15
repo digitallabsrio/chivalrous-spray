@@ -1,0 +1,17 @@
+import asyncio
+import inspect
+import types
+
+# Uncomment the following line to observe isawaitable return True.
+# If the widget uses Python 3.5, an int might be returned instead of True.
+
+#@asyncio.coroutine
+def silly():
+    item = yield None
+    print(item)
+
+
+if __name__ == "__main__":
+    s = silly()
+    print(inspect.isawaitable(s))
+    print(isinstance(s, types.GeneratorType))

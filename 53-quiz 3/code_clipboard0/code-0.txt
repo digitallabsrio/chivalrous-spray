@@ -1,0 +1,48 @@
+from multiprocessing import Condition, Process, Value
+from ctypes import c_bool
+import time
+
+
+def process_A(cv, flag, exit):
+    while not exit.value:
+
+        with cv:
+            while flag.value is False:
+                cv.wait()
+
+            print("ping")
+            flag.value = False
+
+        time.sleep(0.05)
+
+
+def process_B(cv, flag, exit):
+    while not exit.value:
+
+        with cv:
+            while flag.value is True:
+                cv.wait()
+
+            print("pong")
+            flag.value = True
+
+
+if __name__ == '__main__':
+    cv = Condition()
+
+    exit_prog = Value(c_bool, False)
+    flag = Value(c_bool, True)
+
+    processA = Process(target=process_A, args=(cv, flag, exit_prog))
+    processA.start()
+
+    processB = Process(target=process_B, args=(cv, flag, exit_prog))
+    processB.start()
+
+    # Let the threads run for 3 seconds
+    time.sleep(3)
+
+    exit_prog.value = True
+
+    processA.join()
+    processB.join()

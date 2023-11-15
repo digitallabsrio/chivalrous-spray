@@ -1,0 +1,9 @@
+from multiprocessing import Value, Lock
+
+
+lock = Lock()
+pi = Value('d', 3.1415, lock=lock)
+
+lock.acquire()
+print(pi.value)
+lock.release()

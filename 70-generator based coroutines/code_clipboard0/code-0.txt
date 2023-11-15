@@ -1,0 +1,9 @@
+import asyncio
+
+@asyncio.coroutine
+def hello_world():
+    print("hello world")
+
+
+if __name__ == "__main__":
+    asyncio.get_event_loop().run_until_complete(hello_world())

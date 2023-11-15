@@ -1,0 +1,33 @@
+from multiprocessing import Process, Queue, Semaphore
+import multiprocessing
+
+
+def child_process(q, sem1, sem2):
+    var = q.get()
+    print("Child process received var = {0} with id {1} from queue".format(str(var), id(var)))
+    sem2.release()
+    sem1.acquire()
+
+    print("After changes by parent process var in child process = {0}".format(str(var)), flush=True)
+
+
+if __name__ == '__main__':
+    q = Queue()
+    sem1 = Semaphore(0)
+    sem2 = Semaphore(0)
+    print("This machine has {0} CPUs".format(str(multiprocessing.cpu_count())))
+
+    var = {"key" : "value"}
+    print("Parent process puts item on queue with id " + str(id(var)))
+    q.put(var)
+
+    process = Process(target=child_process, args=(q, sem1, sem2))
+    process.start()
+
+    sem2.acquire()
+
+    # change the dictionary object
+    var["key"] = "new-value"
+    print("Parent process changed the enqueued item to " + str(var), flush=True)
+    sem1.release()
+    process.join()

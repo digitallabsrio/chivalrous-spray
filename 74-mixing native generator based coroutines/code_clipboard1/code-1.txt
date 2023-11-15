@@ -1,0 +1,22 @@
+import asyncio
+import types
+
+
+async def main():
+    await useless()
+
+@asyncio.coroutine
+def useless():
+    pass
+
+
+if __name__ == "__main__":
+
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
+
+    # prints true    
+    print("isinstance(useless(), types.GeneratorType) : " + str(isinstance(useless(), types.GeneratorType)))
+
+    # prints true
+    print("asyncio.iscoroutinefunction(useless) : " + str(asyncio.iscoroutinefunction(useless)))    

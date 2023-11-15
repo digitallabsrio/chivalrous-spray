@@ -1,0 +1,24 @@
+from multiprocessing import Process, current_process
+from threading import RLock, current_thread, Thread
+import multiprocessing
+
+
+def child_task_thread(rlock):
+    rlock.release()
+
+
+def child_task(rlock):
+    thread = Thread(target=child_task_thread, args=(rlock,), name="child_process_thread")
+    thread.start()
+    thread.join()
+
+
+if __name__ == '__main__':
+    multiprocessing.set_start_method('fork')
+
+    rlock = RLock()
+    rlock.acquire()
+
+    process1 = Process(target=child_task, args=(rlock,))
+    process1.start()
+    process1.join()

@@ -1,0 +1,35 @@
+def generate_numbers():
+    i = 0
+    while True:
+        i += 1
+        yield i
+        k = yield
+        print("Received in generator function: " + str(k))
+
+
+if __name__ == "__main__":
+    generator = generate_numbers()
+
+    item = next(generator)
+    print("Received in main script: " + str(item))
+
+    # NOOP
+    item = next(generator)
+    print("Received in main script: " + str(item))
+
+    item = generator.send(55)
+    print("Received in main script: " + str(item))
+
+    # NOOP
+    item = next(generator)
+    print("Received in main script: " + str(item))
+
+    item = generator.send(65)
+    print("Received in main script: " + str(item))
+
+    # NOOP
+    item = next(generator)
+    print("Received in main script: " + str(item))
+
+    item = generator.send(75)
+    print("Received in main script: " + str(item))

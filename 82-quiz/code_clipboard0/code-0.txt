@@ -1,0 +1,13 @@
+def bar():
+    yield 5
+
+
+def foo():
+    yield bar()
+
+
+if __name__ == "__main__":
+
+    gen = foo()
+    for item in gen:
+        print(item)

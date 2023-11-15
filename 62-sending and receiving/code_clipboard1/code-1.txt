@@ -1,0 +1,22 @@
+def generate_numbers():
+    i = 0
+    while True:
+        i += 1
+        yield i
+        k = yield
+        print("Received in generator function: " + str(k))
+
+
+if __name__ == "__main__":
+    generator = generate_numbers()
+
+    item = next(generator)
+    print("Received in main script: " + str(item))
+
+    # Nothing is received by the generator function   
+    item = generator.send(5)
+    print("Received in main script: " + str(item))
+
+    # The second send is successful
+    item = generator.send(5)
+    print("Received in main script: " + str(item))

@@ -1,0 +1,15 @@
+def get_natural_nums():
+    i = 0
+    while True:
+        yield i
+        i += 1
+
+
+if __name__ == "__main__":
+    gen = get_natural_nums()
+
+    # Close the generator
+    gen.close()
+
+    # Attempt to iterate
+    next(gen)

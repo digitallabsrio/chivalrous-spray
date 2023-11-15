@@ -1,0 +1,8 @@
+def useless_generator():
+    yield
+
+
+if __name__ == "__main__":
+
+    for item in useless_generator():
+        print(item)

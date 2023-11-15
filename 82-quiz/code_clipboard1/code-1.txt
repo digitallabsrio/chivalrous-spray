@@ -1,0 +1,10 @@
+def foo():
+    return 6
+    yield 9
+
+
+if __name__ == "__main__":
+
+    gen = foo()
+    for item in gen:
+        print(item)

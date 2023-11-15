@@ -1,0 +1,32 @@
+from threading import Thread
+from threading import current_thread
+from asyncio import Future
+import asyncio
+import time
+
+
+async def asleep(sleep_for):
+    future = Future()
+    Thread(target=sync_sleep, args=(sleep_for, future)).start()
+    await future
+
+
+def sync_sleep(sleep_for, future):
+
+    # sleep synchronously
+    time.sleep(sleep_for)
+
+    # resolve the future
+    future.set_result(None)
+
+    print("Sleeping completed in {0}".format(current_thread().getName()), flush=True)
+
+
+if __name__ == "__main__":
+    start = time.time()
+    work = list()
+    work.append(asleep(1))
+
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(asyncio.wait(work, return_when=asyncio.ALL_COMPLETED))
+    print("main program exiting after running for {0}".format(time.time() - start))

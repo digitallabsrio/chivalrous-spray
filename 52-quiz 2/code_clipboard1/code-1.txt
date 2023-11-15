@@ -1,0 +1,26 @@
+from multiprocessing import Process, Value, Semaphore
+import multiprocessing
+
+
+def child_process(item1, item2, sem):
+    sem.acquire()
+    print("{0} {1}".format(str(item1.value), str(item2)), flush=True)
+
+
+if __name__ == '__main__':
+    multiprocessing.set_start_method('fork')
+
+    # intialize both variables to 1
+    var1 = Value('I', 1)
+    var2 = 1
+
+    sem = Semaphore(0)
+
+    process = Process(target=child_process, args=(var1, var2, sem))
+    process.start()
+
+    var1.value = 7
+    var2 = 7
+    sem.release()
+
+    process.join()

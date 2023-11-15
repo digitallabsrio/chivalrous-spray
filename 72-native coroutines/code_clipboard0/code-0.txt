@@ -1,0 +1,11 @@
+import asyncio
+
+
+async def coro():
+    await asyncio.sleep(1)
+
+
+if __name__ == "__main__":
+    # run the coroutine
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(coro())

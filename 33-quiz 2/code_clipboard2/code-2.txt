@@ -1,0 +1,11 @@
+from threading import Timer
+
+
+def timer_task():
+    print("timer task")
+
+
+timer = Timer(5, timer_task)
+timer.start()
+
+print("Main thread exiting")

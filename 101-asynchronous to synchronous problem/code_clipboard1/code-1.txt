@@ -1,0 +1,40 @@
+from threading import Thread
+from threading import Semaphore
+import time
+
+
+class AsyncExecutor:
+
+    def work(self, callback):
+        # simulate work
+        time.sleep(5)
+        # work is done so now invoke callback
+        callback()
+
+    def execute(self, callback):
+        Thread(target=self.work, args=(callback,)).start()
+
+
+class SyncExecutor(AsyncExecutor):
+
+    def __init__(self):
+        self.sem = Semaphore(0)
+
+    def work(self, callback):
+        super().work(callback)
+        self.sem.release()
+
+    def execute(self, callback):
+        super().execute(callback)
+        self.sem.acquire()
+
+
+def say_hi():
+    print("Hi")
+
+
+if __name__ == "__main__":
+    exec = SyncExecutor()
+    exec.execute(say_hi)
+
+    print("main thread exiting")

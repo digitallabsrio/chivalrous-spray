@@ -1,0 +1,21 @@
+from multiprocessing.managers import SyncManager
+from multiprocessing import Process
+import multiprocessing
+
+
+def process1(ns):
+    print(ns._item)
+
+if __name__ == '__main__':
+    multiprocessing.set_start_method("spawn")
+
+    # create a namespace
+    manager = SyncManager(address=('', 55555))
+    manager.start()
+    shared_vars = manager.Namespace()  # manager.Namespace()
+    shared_vars._item = "empty"
+
+    # create the first process
+    p1 = Process(target=process1, args=(shared_vars,))
+    p1.start()
+    p1.join()
